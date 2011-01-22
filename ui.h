@@ -20,7 +20,8 @@
 #ifndef UI_H
 #define UI_H
 
-#include "commandexecuter.h"
+#include "commandexecuterql.h"
+#include "warningdialog.h"
 
 #include <QMainWindow>
 #include <QLayout>
@@ -41,7 +42,7 @@ private:
     void setupUI();
     void setupQuickLookTab();
 
-    CommandExecuter *commandExec;
+    CommandExecuterQL *commandExec;
 
     QGridLayout *grid ;
     QVBoxLayout *drawerGrid;
@@ -53,7 +54,9 @@ private:
 
 signals:
 
-public slots:
+private slots:
+    void restartDock();
+    void restartFinder();
 
 };
 

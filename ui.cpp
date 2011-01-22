@@ -18,6 +18,7 @@
 */
 
 #include "ui.h"
+#include <QMessageBox>
 
 UI::UI(QWidget *parent) : QMainWindow(parent){
     setupUI();
@@ -25,7 +26,7 @@ UI::UI(QWidget *parent) : QMainWindow(parent){
 }
 
 void UI::setupUI(){
-    commandExec = new CommandExecuter();
+    commandExec = new CommandExecuterQL();
     this->setAttribute(Qt::WA_MacMetalStyle);
     this->setFixedSize(600,500);
     central = new QWidget();
@@ -36,6 +37,8 @@ void UI::setupUI(){
     tab = new QTabWidget(central);
     tab->setGeometry(20,20,550,450);
     dockTab = new QWidget();
+    connect(commandExec, SIGNAL(dockRestartRequired()),this,SLOT(restartDock()));
+    connect(commandExec, SIGNAL(finderRestartRequired()),this, SLOT(restartFinder()));
 
    // tab->addTab(dockTab,"Dock");
 
@@ -104,3 +107,15 @@ void UI::setupQuickLookTab(){
     connect(disable_kp, SIGNAL(clicked()), commandExec, SLOT(disableInLine()));
 
 }
+
+void UI::restartDock(){
+    //QMessageBox box();
+    //box.setAttribute(Qt::Sheet);
+}
+
+void UI::restartFinder(){
+    WarningDialog dial(this);
+    dial.setVisible(true);
+
+}
+

@@ -30,23 +30,16 @@ class CommandExecuter : public QObject
 public:
     explicit CommandExecuter(QObject *parent = 0);
 
-private:
+protected:
     void executeCommand(string commandType, int val);
     void executeCommand(string command);
 
 signals:
+    void finderRestartRequired();
+    void dockRestartRequired();
 
 public slots:
-    void enableXRay();
-    void disableXRay();
-    void enableSlowMo();
-    void disableSlowMo();
-    void enableHql();
-    void disableHql();
-    void enableKp();
-    void disableKp();
-    void enableInLine();
-    void disableInLine();
+
 };
 
 #endif // COMMANDEXECUTER_H

@@ -34,45 +34,8 @@ void CommandExecuter::executeCommand(string command){
     system(buffer);
 }
 
-void CommandExecuter::enableXRay(){
-    executeCommand("defaults write com.apple.Finder QLEnableXRayFolders 1");
-}
 
-void CommandExecuter::disableXRay(){
-    executeCommand("defaults write com.apple.Finder QLEnableXRayFolders 0");
-}
 
-void CommandExecuter::enableSlowMo(){
-    executeCommand("defaults write com.apple.Finder QLEnableSlowMotion 1");
-}
-
-void CommandExecuter::disableSlowMo(){
-    executeCommand("defaults write com.apple.Finder QLEnableSlowMotion 0");
-}
-
-void CommandExecuter::enableHql(){
-    executeCommand("defaults write com.apple.Finder QLHidePanelOnDeactivate 1");
-}
-
-void CommandExecuter::disableHql(){
-    executeCommand("defaults write com.apple.Finder QLHidePanelOnDeactivate 0");
-}
-
-void CommandExecuter::enableKp(){
-    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 0");
-}
-
-void CommandExecuter::disableKp(){
-    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 1");
-}
-
-void CommandExecuter::enableInLine(){
-    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 0");
-}
-
-void CommandExecuter::disableInLine(){
-    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 1");
-}
 
 
 

@@ -12,10 +12,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     ui.cpp \
-    commandexecuter.cpp
+    commandexecuter.cpp \
+    commandexecuterql.cpp \
+    warningdialog.cpp
 
 HEADERS  += \
     ui.h \
-    commandexecuter.h
+    commandexecuter.h \
+    commandexecuterql.h \
+    warningdialog.h
 
 FORMS    +=
