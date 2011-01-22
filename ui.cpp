@@ -27,14 +27,14 @@ UI::UI(QWidget *parent) : QMainWindow(parent){
 void UI::setupUI(){
     commandExec = new CommandExecuter();
     this->setAttribute(Qt::WA_MacMetalStyle);
-    this->setFixedSize(600,400);
+    this->setFixedSize(600,500);
     central = new QWidget();
     this->setCentralWidget(central);
     grid = new QGridLayout();
     drawerGrid = new QVBoxLayout();
 
     tab = new QTabWidget(central);
-    tab->setGeometry(20,20,550,350);;
+    tab->setGeometry(20,20,550,450);
     dockTab = new QWidget();
 
    // tab->addTab(dockTab,"Dock");
@@ -48,13 +48,17 @@ void UI::setupQuickLookTab(){
 
     QGridLayout *grid = new QGridLayout();
     quickLookTab->setLayout(grid);
+    QIcon qlIcon("../Resources/QL.png");
+    QIcon checkIcon("../Resources/check.png");
+    QIcon uncheckIcon("../Resources/uncheck.png");
 
 
-    tab->addTab(quickLookTab, "QuickLook");
+
+    tab->addTab(quickLookTab, qlIcon,"QuickLook");
     QLabel *xray = new QLabel("X-Raying");
     grid->addWidget(xray,0,0);
-    QPushButton *enable_ray = new QPushButton("Enable");
-    QPushButton *disable_ray = new QPushButton("Disable");
+    QPushButton *enable_ray = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_ray = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_ray,0,6);
     grid->addWidget(disable_ray,1,6);
     connect(enable_ray, SIGNAL(clicked()), commandExec, SLOT(enableXRay()));
@@ -63,8 +67,8 @@ void UI::setupQuickLookTab(){
 
     QLabel *slowMo = new QLabel("Slow-Motion");
     grid->addWidget(slowMo,2,0);
-    QPushButton *enable_sm = new QPushButton("Enable");
-    QPushButton *disable_sm = new QPushButton("Disable");
+    QPushButton *enable_sm = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_sm = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_sm,2,6);
     grid->addWidget(disable_sm,3,6);
     connect(enable_sm, SIGNAL(clicked()), commandExec, SLOT(enableSlowMo()));
@@ -72,8 +76,9 @@ void UI::setupQuickLookTab(){
 
     QLabel *hideQL = new QLabel("Hide QuickLook Window When Finder Isn't In Front");
     grid->addWidget(hideQL,4,0);
-    QPushButton *enable_hql = new QPushButton("Enable");
-    QPushButton *disable_hql = new QPushButton("Disable");
+    QPushButton *enable_hql = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_hql = new QPushButton(uncheckIcon,"Disable");
+    //enable_hql->setFlat(true);
     grid->addWidget(enable_hql,4,6);
     grid->addWidget(disable_hql,5,6);
     connect(enable_hql, SIGNAL(clicked()), commandExec, SLOT(enableHql()));
@@ -81,8 +86,8 @@ void UI::setupQuickLookTab(){
 
     QLabel *keepPlay = new QLabel("Keep playing Icon previews even if not selected");
     grid->addWidget(keepPlay,6,0);
-    QPushButton *enable_kp = new QPushButton("Enable");
-    QPushButton *disable_kp = new QPushButton("Disable");
+    QPushButton *enable_kp = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_kp = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_kp,6,6);
     grid->addWidget(disable_kp,7,6);
     connect(enable_kp, SIGNAL(clicked()), commandExec, SLOT(enableKp()));
@@ -91,8 +96,8 @@ void UI::setupQuickLookTab(){
 
     QLabel *inLine = new QLabel("Enable In-Line Previews For ANY Icon Size");
     grid->addWidget(inLine,8,0);
-    QPushButton *enable_il = new QPushButton("Enable");
-    QPushButton *disable_il = new QPushButton("Disable");
+    QPushButton *enable_il = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_il = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_il,8,6);
     grid->addWidget(disable_il,9,6);
     connect(enable_kp, SIGNAL(clicked()), commandExec, SLOT(enableInLine()));

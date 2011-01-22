@@ -29,6 +29,7 @@
 #include <QTabWidget>
 #include <QPushButton>
 #include <QLabel>
+#include <QIcon>
 
 class UI : public QMainWindow
 {
