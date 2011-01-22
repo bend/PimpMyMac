@@ -19,11 +19,61 @@
 
 #include "commandexecuter.h"
 
-commandExecuter::commandExecuter(QObject *parent) :QObject(parent){
+CommandExecuter::CommandExecuter(QObject *parent) :QObject(parent){
 
 }
 
-void commandExecuter::executeCommand(string commandType, int val){
+void CommandExecuter::executeCommand(string commandType, int val){
 
 }
+
+void CommandExecuter::executeCommand(string command){
+    size_t size = command.size() + 1;
+    char * buffer = new char[ size ];
+    strncpy( buffer, command.c_str(), size );
+    system(buffer);
+}
+
+void CommandExecuter::enableXRay(){
+    executeCommand("defaults write com.apple.Finder QLEnableXRayFolders 1");
+}
+
+void CommandExecuter::disableXRay(){
+    executeCommand("defaults write com.apple.Finder QLEnableXRayFolders 0");
+}
+
+void CommandExecuter::enableSlowMo(){
+    executeCommand("defaults write com.apple.Finder QLEnableSlowMotion 1");
+}
+
+void CommandExecuter::disableSlowMo(){
+    executeCommand("defaults write com.apple.Finder QLEnableSlowMotion 0");
+}
+
+void CommandExecuter::enableHql(){
+    executeCommand("defaults write com.apple.Finder QLHidePanelOnDeactivate 1");
+}
+
+void CommandExecuter::disableHql(){
+    executeCommand("defaults write com.apple.Finder QLHidePanelOnDeactivate 0");
+}
+
+void CommandExecuter::enableKp(){
+    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 0");
+}
+
+void CommandExecuter::disableKp(){
+    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 1");
+}
+
+void CommandExecuter::enableInLine(){
+    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 0");
+}
+
+void CommandExecuter::disableInLine(){
+    executeCommand("defaults write com.apple.Finder AutoStopWhenSelectionChanges 1");
+}
+
+
+
 

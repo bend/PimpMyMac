@@ -24,17 +24,29 @@
 #include <string>
 using namespace std;
 
-class commandExecuter : public QObject
+class CommandExecuter : public QObject
 {
     Q_OBJECT
 public:
-    explicit commandExecuter(QObject *parent = 0);
+    explicit CommandExecuter(QObject *parent = 0);
+
+private:
+    void executeCommand(string commandType, int val);
+    void executeCommand(string command);
 
 signals:
 
 public slots:
-    void executeCommand(string commandType, int val);
-
+    void enableXRay();
+    void disableXRay();
+    void enableSlowMo();
+    void disableSlowMo();
+    void enableHql();
+    void disableHql();
+    void enableKp();
+    void disableKp();
+    void enableInLine();
+    void disableInLine();
 };
 
 #endif // COMMANDEXECUTER_H

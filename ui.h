@@ -20,10 +20,15 @@
 #ifndef UI_H
 #define UI_H
 
+#include "commandexecuter.h"
+
 #include <QMainWindow>
 #include <QLayout>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QTabWidget>
+#include <QPushButton>
+#include <QLabel>
 
 class UI : public QMainWindow
 {
@@ -33,6 +38,17 @@ public:
 
 private:
     void setupUI();
+    void setupQuickLookTab();
+
+    CommandExecuter *commandExec;
+
+    QGridLayout *grid ;
+    QVBoxLayout *drawerGrid;
+    QWidget *central;
+    QTabWidget *tab;
+    QWidget *dockTab;
+    QWidget *quickLookTab;
+
 
 signals:
 
