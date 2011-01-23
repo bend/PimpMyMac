@@ -21,7 +21,6 @@
 #include <QMessageBox>
 
 UI::UI(QWidget *parent) : QMainWindow(parent){
-    this->setAttribute(Qt::WA_DeleteOnClose);
     setupUI();
 }
 
@@ -47,7 +46,6 @@ void UI::setupUI(){
 }
 
 UI::~UI(){
-    delete central;
 }
 
 void UI::setupQuickLookTab(){
