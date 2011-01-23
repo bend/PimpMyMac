@@ -37,12 +37,13 @@ class UI : public QMainWindow
     Q_OBJECT
 public:
     explicit UI(QWidget *parent = 0);
+    ~UI();
 
 private:
     void setupUI();
     void setupQuickLookTab();
 
-    CommandExecuterQL *commandExec;
+    CommandExecuterQL *commandExecQL;
 
     QGridLayout *grid ;
     QVBoxLayout *drawerGrid;

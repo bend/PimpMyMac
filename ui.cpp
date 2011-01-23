@@ -21,12 +21,12 @@
 #include <QMessageBox>
 
 UI::UI(QWidget *parent) : QMainWindow(parent){
+    this->setAttribute(Qt::WA_DeleteOnClose);
     setupUI();
-
 }
 
 void UI::setupUI(){
-    commandExec = new CommandExecuterQL();
+    commandExecQL = new CommandExecuterQL();
     this->setAttribute(Qt::WA_MacMetalStyle);
     this->setFixedSize(600,500);
     central = new QWidget();
@@ -37,13 +37,17 @@ void UI::setupUI(){
     tab = new QTabWidget(central);
     tab->setGeometry(20,20,550,450);
     dockTab = new QWidget();
-    connect(commandExec, SIGNAL(dockRestartRequired()),this,SLOT(restartDock()));
-    connect(commandExec, SIGNAL(finderRestartRequired()),this, SLOT(restartFinder()));
+    connect(commandExecQL, SIGNAL(dockRestartRequired()),this,SLOT(restartDock()));
+    connect(commandExecQL, SIGNAL(finderRestartRequired()),this, SLOT(restartFinder()));
 
    // tab->addTab(dockTab,"Dock");
 
     setupQuickLookTab();
 
+}
+
+UI::~UI(){
+    delete central;
 }
 
 void UI::setupQuickLookTab(){
@@ -55,8 +59,6 @@ void UI::setupQuickLookTab(){
     QIcon checkIcon("../Resources/check.png");
     QIcon uncheckIcon("../Resources/uncheck.png");
 
-
-
     tab->addTab(quickLookTab, qlIcon,"QuickLook");
     QLabel *xray = new QLabel("X-Raying");
     grid->addWidget(xray,0,0);
@@ -64,8 +66,8 @@ void UI::setupQuickLookTab(){
     QPushButton *disable_ray = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_ray,0,6);
     grid->addWidget(disable_ray,1,6);
-    connect(enable_ray, SIGNAL(clicked()), commandExec, SLOT(enableXRay()));
-    connect(disable_ray, SIGNAL(clicked()), commandExec, SLOT(disableXRay()));
+    connect(enable_ray, SIGNAL(clicked()), commandExecQL, SLOT(enableXRay()));
+    connect(disable_ray, SIGNAL(clicked()), commandExecQL, SLOT(disableXRay()));
 
 
     QLabel *slowMo = new QLabel("Slow-Motion");
@@ -74,8 +76,8 @@ void UI::setupQuickLookTab(){
     QPushButton *disable_sm = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_sm,2,6);
     grid->addWidget(disable_sm,3,6);
-    connect(enable_sm, SIGNAL(clicked()), commandExec, SLOT(enableSlowMo()));
-    connect(disable_sm, SIGNAL(clicked()), commandExec, SLOT(disableSlowMo()));
+    connect(enable_sm, SIGNAL(clicked()), commandExecQL, SLOT(enableSlowMo()));
+    connect(disable_sm, SIGNAL(clicked()), commandExecQL, SLOT(disableSlowMo()));
 
     QLabel *hideQL = new QLabel("Hide QuickLook Window When Finder Isn't In Front");
     grid->addWidget(hideQL,4,0);
@@ -84,8 +86,8 @@ void UI::setupQuickLookTab(){
     //enable_hql->setFlat(true);
     grid->addWidget(enable_hql,4,6);
     grid->addWidget(disable_hql,5,6);
-    connect(enable_hql, SIGNAL(clicked()), commandExec, SLOT(enableHql()));
-    connect(disable_hql, SIGNAL(clicked()), commandExec, SLOT(disableHql()));
+    connect(enable_hql, SIGNAL(clicked()), commandExecQL, SLOT(enableHql()));
+    connect(disable_hql, SIGNAL(clicked()), commandExecQL, SLOT(disableHql()));
 
     QLabel *keepPlay = new QLabel("Keep playing Icon previews even if not selected");
     grid->addWidget(keepPlay,6,0);
@@ -93,8 +95,8 @@ void UI::setupQuickLookTab(){
     QPushButton *disable_kp = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_kp,6,6);
     grid->addWidget(disable_kp,7,6);
-    connect(enable_kp, SIGNAL(clicked()), commandExec, SLOT(enableKp()));
-    connect(disable_kp, SIGNAL(clicked()), commandExec, SLOT(disableKp()));
+    connect(enable_kp, SIGNAL(clicked()), commandExecQL, SLOT(enableKp()));
+    connect(disable_kp, SIGNAL(clicked()), commandExecQL, SLOT(disableKp()));
 
 
     QLabel *inLine = new QLabel("Enable In-Line Previews For ANY Icon Size");
@@ -103,8 +105,8 @@ void UI::setupQuickLookTab(){
     QPushButton *disable_il = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_il,8,6);
     grid->addWidget(disable_il,9,6);
-    connect(enable_kp, SIGNAL(clicked()), commandExec, SLOT(enableInLine()));
-    connect(disable_kp, SIGNAL(clicked()), commandExec, SLOT(disableInLine()));
+    connect(enable_il, SIGNAL(clicked()), commandExecQL, SLOT(enableInLine()));
+    connect(disable_il, SIGNAL(clicked()), commandExecQL, SLOT(disableInLine()));
 
 }
 
@@ -114,8 +116,8 @@ void UI::restartDock(){
 }
 
 void UI::restartFinder(){
-    WarningDialog dial(this);
-    dial.setVisible(true);
-
+    WarningDialog *dial = new WarningDialog(this,"Finder must be restarted","Finder");
+    connect(dial,SIGNAL(restartNow()),commandExecQL,SLOT(restart()));
+    dial->show();
 }
 
