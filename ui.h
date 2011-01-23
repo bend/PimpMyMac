@@ -42,8 +42,11 @@ public:
 private:
     void setupUI();
     void setupQuickLookTab();
+    void setupDockTab();
 
     CommandExecuterQL *commandExecQL;
+    //CommandExecuterDock *commandExecDock;
+
 
     QGridLayout *grid ;
     QVBoxLayout *drawerGrid;

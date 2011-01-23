@@ -25,9 +25,11 @@ UI::UI(QWidget *parent) : QMainWindow(parent){
 }
 
 void UI::setupUI(){
-    commandExecQL = new CommandExecuterQL();
     this->setAttribute(Qt::WA_MacMetalStyle);
     this->setFixedSize(600,500);
+
+    commandExecQL = new CommandExecuterQL();
+
     central = new QWidget();
     this->setCentralWidget(central);
     grid = new QGridLayout();
@@ -38,17 +40,38 @@ void UI::setupUI(){
     dockTab = new QWidget();
     connect(commandExecQL, SIGNAL(dockRestartRequired()),this,SLOT(restartDock()));
     connect(commandExecQL, SIGNAL(finderRestartRequired()),this, SLOT(restartFinder()));
-
-   // tab->addTab(dockTab,"Dock");
-
     setupQuickLookTab();
+    setupDockTab();
 
 }
 
 UI::~UI(){
 }
 
+void UI::setupDockTab(){
+    /*//commandExecDock = new CommandExecuterDock();
+    dockTab = new QWidget();
+
+    QGridLayout *grid = new QGridLayout();
+    dockTab->setLayout(grid);
+    QIcon dockIcon("../Resources/Dock.png");
+    QIcon checkIcon("../Resources/check.png");
+    QIcon uncheckIcon("../Resources/uncheck.png");
+    tab->addTab(dockTab, dockIcon,"Dock");
+
+    QLabel *stackH= new QLabel("Enable stack items highlight on mouse over");
+    grid->addWidget(stackH,0,0);
+    QPushButton *enable_sh = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_sh = new QPushButton(uncheckIcon,"Disable");
+    grid->addWidget(enable_sh,0,6);
+    grid->addWidget(disable_sh,1,6);*/
+    //connect(enable_sh, SIGNAL(clicked()), commandExecQL, SLOT(enableXRay()));
+    //connect(disable_sh, SIGNAL(clicked()), commandExecQL, SLOT(disableXRay()));
+
+}
+
 void UI::setupQuickLookTab(){
+    commandExecQL = new CommandExecuterQL();
     quickLookTab = new QWidget();
 
     QGridLayout *grid = new QGridLayout();
@@ -58,7 +81,7 @@ void UI::setupQuickLookTab(){
     QIcon uncheckIcon("../Resources/uncheck.png");
 
     tab->addTab(quickLookTab, qlIcon,"QuickLook");
-    QLabel *xray = new QLabel("X-Raying");
+    QLabel *xray = new QLabel("Enable X-Raying of folders");
     grid->addWidget(xray,0,0);
     QPushButton *enable_ray = new QPushButton(checkIcon,"Enable");
     QPushButton *disable_ray = new QPushButton(uncheckIcon,"Disable");
@@ -68,7 +91,7 @@ void UI::setupQuickLookTab(){
     connect(disable_ray, SIGNAL(clicked()), commandExecQL, SLOT(disableXRay()));
 
 
-    QLabel *slowMo = new QLabel("Slow-Motion");
+    QLabel *slowMo = new QLabel("Enable Slow-Motion for Expose");
     grid->addWidget(slowMo,2,0);
     QPushButton *enable_sm = new QPushButton(checkIcon,"Enable");
     QPushButton *disable_sm = new QPushButton(uncheckIcon,"Disable");
