@@ -29,6 +29,7 @@ void UI::setupUI(){
     this->setFixedSize(600,500);
 
     commandExecQL = new CommandExecuterQL();
+    commandExecDock = new CommandExecuterDock();
 
     central = new QWidget();
     this->setCentralWidget(central);
@@ -38,7 +39,7 @@ void UI::setupUI(){
     tab = new QTabWidget(central);
     tab->setGeometry(20,20,550,450);
     dockTab = new QWidget();
-    connect(commandExecQL, SIGNAL(dockRestartRequired()),this,SLOT(restartDock()));
+    connect(commandExecDock, SIGNAL(dockRestartRequired()),this,SLOT(restartDock()));
     connect(commandExecQL, SIGNAL(finderRestartRequired()),this, SLOT(restartFinder()));
     setupQuickLookTab();
     setupDockTab();
@@ -49,7 +50,6 @@ UI::~UI(){
 }
 
 void UI::setupDockTab(){
-    /*//commandExecDock = new CommandExecuterDock();
     dockTab = new QWidget();
 
     QGridLayout *grid = new QGridLayout();
@@ -57,21 +57,55 @@ void UI::setupDockTab(){
     QIcon dockIcon("../Resources/Dock.png");
     QIcon checkIcon("../Resources/check.png");
     QIcon uncheckIcon("../Resources/uncheck.png");
-    tab->addTab(dockTab, dockIcon,"Dock");
+    tab->addTab(dockTab, dockIcon,"Dock and Dashboard");
 
     QLabel *stackH= new QLabel("Enable stack items highlight on mouse over");
     grid->addWidget(stackH,0,0);
     QPushButton *enable_sh = new QPushButton(checkIcon,"Enable");
     QPushButton *disable_sh = new QPushButton(uncheckIcon,"Disable");
     grid->addWidget(enable_sh,0,6);
-    grid->addWidget(disable_sh,1,6);*/
-    //connect(enable_sh, SIGNAL(clicked()), commandExecQL, SLOT(enableXRay()));
-    //connect(disable_sh, SIGNAL(clicked()), commandExecQL, SLOT(disableXRay()));
+    grid->addWidget(disable_sh,1,6);
+    connect(enable_sh, SIGNAL(clicked()), commandExecDock, SLOT(enableStackH()));
+    connect(disable_sh, SIGNAL(clicked()), commandExecDock, SLOT(disableStackH()));
 
+    QLabel *forceDock= new QLabel("Force Dock to show only running applications");
+    grid->addWidget(forceDock,2,0);
+    QPushButton *enable_fd = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_fd = new QPushButton(uncheckIcon,"Disable");
+    grid->addWidget(enable_fd,2,6);
+    grid->addWidget(disable_fd,3,6);
+    connect(enable_fd, SIGNAL(clicked()), commandExecDock, SLOT(enableForceDock()));
+    connect(disable_fd, SIGNAL(clicked()), commandExecDock, SLOT(disableForceDock()));
+
+    QLabel *hiddenApp= new QLabel("Make hidden apps dock icons translucent");
+    grid->addWidget(hiddenApp,4,0);
+    QPushButton *enable_ha = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_ha = new QPushButton(uncheckIcon,"Disable");
+    grid->addWidget(enable_ha,4,6);
+    grid->addWidget(disable_ha,5,6);
+    connect(enable_ha, SIGNAL(clicked()), commandExecDock, SLOT(enableHiddenApp()));
+    connect(disable_ha, SIGNAL(clicked()), commandExecDock, SLOT(disableHiddenApp()));
+
+    QLabel *widgetDrag= new QLabel("Enable widget dragging from dashboard\nto Desktop");
+    grid->addWidget(widgetDrag,6,0);
+    QPushButton *enable_wd = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_wd = new QPushButton(uncheckIcon,"Disable");
+    grid->addWidget(enable_wd,6,6);
+    grid->addWidget(disable_wd,7,6);
+    connect(enable_wd, SIGNAL(clicked()), commandExecDock, SLOT(enableWidgetDrag()));
+    connect(disable_wd, SIGNAL(clicked()), commandExecDock, SLOT(disableWidgetDrag()));
+
+    QLabel *dock2d= new QLabel("2D Dock");
+    grid->addWidget(dock2d,8,0);
+    QPushButton *enable_2d = new QPushButton(checkIcon,"Enable");
+    QPushButton *disable_2d = new QPushButton(uncheckIcon,"Disable");
+    grid->addWidget(enable_2d,8,6);
+    grid->addWidget(disable_2d,9,6);
+    connect(enable_2d, SIGNAL(clicked()), commandExecDock, SLOT(enable2D()));
+    connect(disable_2d, SIGNAL(clicked()), commandExecDock, SLOT(disable2D()));
 }
 
 void UI::setupQuickLookTab(){
-    commandExecQL = new CommandExecuterQL();
     quickLookTab = new QWidget();
 
     QGridLayout *grid = new QGridLayout();
@@ -132,13 +166,14 @@ void UI::setupQuickLookTab(){
 }
 
 void UI::restartDock(){
-    //QMessageBox box();
-    //box.setAttribute(Qt::Sheet);
+    WarningDialog *dial = new WarningDialog(this,"Dock must be restarted","Dock");
+    connect(dial,SIGNAL(restartNow()),commandExecDock,SLOT(restart()));
+    dial->show();
 }
 
 void UI::restartFinder(){
-    WarningDialog *dial = new WarningDialog(this,"Finder must be restarted","Finder");
-    connect(dial,SIGNAL(restartNow()),commandExecQL,SLOT(restart()));
-    dial->show();
+    WarningDialog *dial2 = new WarningDialog(this,"Finder must be restarted","Finder");
+    connect(dial2,SIGNAL(restartNow()),commandExecQL,SLOT(restart()));
+    dial2->show();
 }
 

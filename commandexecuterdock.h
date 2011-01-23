@@ -17,32 +17,36 @@
 *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef COMMANDEXECUTERQL_H
-#define COMMANDEXECUTERQL_H
-
-#include <QWidget>
+#ifndef COMMANDEXECUTERDOCK_H
+#define COMMANDEXECUTERDOCK_H
 #include "commandexecuter.h"
+#include <QWidget>
 
-class CommandExecuterQL : public CommandExecuter{
+class CommandExecuterDock : public CommandExecuter
+{
     Q_OBJECT
 public:
-    explicit CommandExecuterQL(QWidget *parent = 0);
-
-signals:
+    explicit CommandExecuterDock(QWidget *parent = 0);
 
 public slots:
-    void enableXRay();
-    void disableXRay();
-    void enableSlowMo();
-    void disableSlowMo();
-    void enableHql();
-    void disableHql();
-    void enableKp();
-    void disableKp();
-    void enableInLine();
-    void disableInLine();
+    void enableStackH();
+    void disableStackH();
+    void enableForceDock();
+    void disableForceDock();
+    void enableHiddenApp();
+    void disableHiddenApp();
+    void enableWidgetDrag();
+    void disableWidgetDrag();
+    void enable2D();
+    void disable2D();
     void restart();
+
+
+
+
+
+
 
 };
 
-#endif // COMMANDEXECUTERQL_H
+#endif // COMMANDEXECUTERDOCK_H

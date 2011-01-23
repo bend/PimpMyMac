@@ -74,6 +74,7 @@ void CommandExecuterQL::disableInLine(){
 }
 
 void CommandExecuterQL::restart(){
+    executeCommand("killall quicklookd32");
     executeCommand("killall Finder");
 }
 

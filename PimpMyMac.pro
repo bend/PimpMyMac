@@ -14,12 +14,14 @@ SOURCES += main.cpp \
     ui.cpp \
     commandexecuter.cpp \
     commandexecuterql.cpp \
-    warningdialog.cpp
+    warningdialog.cpp \
+    commandexecuterdock.cpp
 
 HEADERS  += \
     ui.h \
     commandexecuter.h \
     commandexecuterql.h \
-    warningdialog.h
+    warningdialog.h \
+    commandexecuterdock.h
 
 FORMS    +=

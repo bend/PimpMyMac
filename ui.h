@@ -21,6 +21,7 @@
 #define UI_H
 
 #include "commandexecuterql.h"
+#include "commandexecuterdock.h"
 #include "warningdialog.h"
 
 #include <QMainWindow>
@@ -45,7 +46,7 @@ private:
     void setupDockTab();
 
     CommandExecuterQL *commandExecQL;
-    //CommandExecuterDock *commandExecDock;
+    CommandExecuterDock *commandExecDock;
 
 
     QGridLayout *grid ;
