@@ -22,8 +22,7 @@
 #include "commandexecuter.h"
 #include <QWidget>
 
-class CommandExecuterDock : public CommandExecuter
-{
+class CommandExecuterDock : public CommandExecuter{
     Q_OBJECT
 public:
     explicit CommandExecuterDock(QWidget *parent = 0);

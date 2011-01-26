@@ -24,12 +24,12 @@ CommandExecuterDock::CommandExecuterDock(QWidget *parent):CommandExecuter(parent
 }
 
 void CommandExecuterDock::enableStackH(){
-    executeCommand("defaults write com.apple.dock mouse-over-hilte-stack -boolean YES");
+    executeCommand("defaults write com.apple.dock mouse-over-hilte-stack 1");
     emit dockRestartRequired();
 }
 
 void CommandExecuterDock::disableStackH(){
-    executeCommand("defaults write com.apple.dock mouse-over-hilte-stack -boolean NO");
+    executeCommand("defaults write com.apple.dock mouse-over-hilte-stack 0");
     emit dockRestartRequired();
 }
 
